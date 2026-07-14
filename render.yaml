@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: youpoker
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20.11.1
+      # BOT_TOKEN — задать вручную в дашборде Render, если подключаешь реального бота

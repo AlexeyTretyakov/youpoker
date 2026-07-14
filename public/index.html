@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Покер с друзьями</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <!-- ЛОББИ -->
+  <section id="lobby" class="screen">
+    <div class="brand">
+      <div class="chip-logo">♠</div>
+      <h1>Покер<span>с друзьями</span></h1>
+    </div>
+    <p class="hi" id="hi">Подключаемся…</p>
+
+    <button id="btnCreate" class="btn btn-primary">Создать стол</button>
+
+    <div class="divider"><span>или</span></div>
+
+    <div class="join-row">
+      <input id="joinCode" placeholder="КОД СТОЛА" maxlength="6" autocomplete="off" />
+      <button id="btnJoin" class="btn">Войти</button>
+    </div>
+    <p class="err" id="lobbyErr"></p>
+  </section>
+
+  <!-- СОЗДАНИЕ -->
+  <section id="createScreen" class="screen hidden">
+    <h2>Настройки стола</h2>
+    <label>Малый блайнд <input id="cfgSb" type="number" value="10" /></label>
+    <label>Большой блайнд <input id="cfgBb" type="number" value="20" /></label>
+    <label>Байн (стек) <input id="cfgBuy" type="number" value="1000" /></label>
+    <button id="btnCreateGo" class="btn btn-primary">Создать</button>
+    <button id="btnCreateBack" class="btn btn-ghost">Назад</button>
+  </section>
+
+  <!-- СТОЛ -->
+  <section id="game" class="screen hidden">
+    <header class="topbar">
+      <div class="tinfo">
+        <span class="tcode" id="tCode"></span>
+        <span class="tblinds" id="tBlinds"></span>
+      </div>
+      <button id="btnInvite" class="btn btn-mini">Пригласить</button>
+      <button id="btnLeave" class="btn btn-mini btn-ghost">Выйти</button>
+    </header>
+
+    <div class="felt">
+      <div class="board" id="board"></div>
+      <div class="pot" id="pot"></div>
+      <div class="phase" id="phase"></div>
+      <div id="seats"></div>
+    </div>
+
+    <div class="log" id="log"></div>
+
+    <div class="controls" id="controls">
+      <button id="btnStart" class="btn btn-primary hidden">Раздать</button>
+      <div id="actions" class="actions hidden">
+        <button class="btn act-fold" data-a="fold">Фолд</button>
+        <button class="btn act-check" data-a="check">Чек</button>
+        <button class="btn act-call" data-a="call">Колл</button>
+        <button class="btn act-raise" data-a="raise">Рейз</button>
+      </div>
+      <div id="raiseBox" class="raise-box hidden">
+        <input id="raiseRange" type="range" />
+        <div class="raise-num"><span id="raiseVal"></span></div>
+        <div class="raise-btns">
+          <button class="btn btn-ghost" id="raiseCancel">Отмена</button>
+          <button class="btn btn-primary" id="raiseGo">Поставить</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="/app.js"></script>
+</body>
+</html>
