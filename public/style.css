@@ -21,7 +21,7 @@
 html, body { height: 100%; }
 body {
   margin: 0;
-  font-family: "Sora", -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: "Montserrat", -apple-system, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
   min-height: 100vh;
   overflow-x: hidden;
@@ -57,13 +57,13 @@ body::before {
   box-shadow: 0 0 46px 6px var(--gold-soft); pointer-events: none;
 }
 .brand h1 {
-  font-family: "Playfair Display", serif; font-size: 40px; line-height: 1; margin: 0;
+  font-family: "Montserrat", sans-serif; font-size: 40px; line-height: 1; margin: 0;
   font-weight: 800; letter-spacing: .3px;
   background: linear-gradient(180deg, #fdf3d6, var(--gold) 55%, var(--gold-deep));
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
 }
 .brand h1 span {
-  display: block; font-family: "Sora", sans-serif; font-size: 12px; color: var(--muted);
+  display: block; font-family: "Montserrat", sans-serif; font-size: 12px; color: var(--muted);
   font-weight: 500; letter-spacing: 5px; text-transform: uppercase; margin-top: 10px;
   -webkit-text-fill-color: var(--muted);
 }
@@ -97,7 +97,7 @@ body::before {
 .join-row { display: flex; gap: 10px; }
 .join-row input {
   flex: 1; text-align: center; text-transform: uppercase; letter-spacing: 6px; font-weight: 700;
-  font-size: 19px; font-family: "Sora", sans-serif;
+  font-size: 19px; font-family: "Montserrat", sans-serif;
   background: rgba(0,0,0,.28); border: 1px solid var(--glass-brd); border-radius: var(--radius);
   color: var(--gold); padding: 15px; transition: border-color .2s, box-shadow .2s;
 }
@@ -106,7 +106,7 @@ body::before {
 .join-row .btn { width: auto; }
 .err { color: var(--danger); text-align: center; min-height: 20px; margin-top: 14px; font-size: 14px; }
 
-#createScreen h2 { text-align: center; font-family: "Playfair Display", serif; font-size: 26px; font-weight: 700; margin: 30px 0 20px; }
+#createScreen h2 { text-align: center; font-family: "Montserrat", sans-serif; font-size: 26px; font-weight: 700; margin: 30px 0 20px; }
 #createScreen label { display: block; margin: 16px 2px; color: var(--muted); font-size: 13px; letter-spacing: .5px; text-transform: uppercase; }
 #createScreen input {
   width: 100%; margin-top: 8px; background: rgba(0,0,0,.28); border: 1px solid var(--glass-brd);
@@ -167,7 +167,7 @@ body::before {
   width: 50px; height: 70px; border-radius: 9px;
   background: linear-gradient(160deg, #ffffff, #eef0f4);
   color: #16202c; display: grid; place-items: center; font-weight: 700; font-size: 23px;
-  position: relative; font-family: "Playfair Display", Georgia, serif;
+  position: relative; font-family: "Montserrat", sans-serif;
   box-shadow: 0 4px 10px rgba(0,0,0,.45), inset 0 0 0 1px rgba(0,0,0,.06);
   animation: dealIn .32s cubic-bezier(.2,.9,.3,1.2) both;
 }
@@ -245,7 +245,7 @@ body::before {
 .raise-box input[type=range] { width: 100%; accent-color: var(--gold); height: 26px; }
 .raise-num {
   text-align: center; font-size: 26px; font-weight: 800; color: var(--gold);
-  margin: 8px 0; font-family: "Sora", sans-serif; letter-spacing: .5px;
+  margin: 8px 0; font-family: "Montserrat", sans-serif; letter-spacing: .5px;
 }
 .raise-btns { display: flex; gap: 10px; }
 
