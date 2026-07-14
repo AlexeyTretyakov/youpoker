@@ -94,23 +94,33 @@ document.querySelectorAll('#actions .btn').forEach((b) => {
 });
 
 // --- рейз-слайдер ---
+let raiseOpen = false; // открыт ли слайдер ставки (чтобы ре-рендер его не сбивал)
+
 function openRaise() {
   const you = state.you;
-  const min = Math.min(state.currentBet + state.minRaise, you.stack + you.bet);
-  const max = you.stack + you.bet;
+  const max = you.stack + you.bet;                       // максимум = олл-ин
+  let min = state.currentBet + state.minRaise;           // минимальный рейз/бет
+  if (min > max) min = max;                              // короткий стек — ставка = олл-ин
   const range = $('raiseRange');
-  range.min = min; range.max = max; range.step = state.bigBlind >= 1 ? Math.max(1, Math.floor(state.bigBlind / 2)) : 1;
+  range.min = min; range.max = max;
+  range.step = state.bigBlind >= 1 ? Math.max(1, Math.floor(state.bigBlind / 2)) : 1;
   range.value = min;
   $('raiseVal').textContent = min;
+  raiseOpen = true;
   $('actions').classList.add('hidden');
   $('raiseBox').classList.remove('hidden');
 }
+function closeRaise() {
+  raiseOpen = false;
+  $('raiseBox').classList.add('hidden');
+  $('actions').classList.remove('hidden');
+}
 $('raiseRange').oninput = (e) => { $('raiseVal').textContent = e.target.value; };
-$('raiseCancel').onclick = () => { $('raiseBox').classList.add('hidden'); $('actions').classList.remove('hidden'); };
+$('raiseCancel').onclick = () => closeRaise();
 $('raiseGo').onclick = () => {
   const amount = +$('raiseRange').value;
   socket.emit('action', { action: 'raise', amount }, (r) => { if (!r.ok) toast(r.err); });
-  $('raiseBox').classList.add('hidden'); $('actions').classList.remove('hidden');
+  closeRaise();
 };
 
 // --- рендер ---
@@ -193,10 +203,11 @@ function renderControls() {
   const seatedCount = state.seats.filter(Boolean).length;
   $('btnStart').classList.toggle('hidden', !(canStart && seatedCount >= 2));
   const myTurn = state.you && state.you.isTurn && !canStart;
+  // ход потерян — закрываем открытый слайдер ставки
+  if (!myTurn && raiseOpen) { raiseOpen = false; $('raiseBox').classList.add('hidden'); }
+  // пока слайдер ставки открыт (и всё ещё мой ход) — не трогаем панель, чтобы ре-рендер не мешал вводу
+  if (raiseOpen && myTurn) return;
   $('actions').classList.toggle('hidden', !myTurn);
-  if ($('raiseBox').classList.contains('hidden') === false && !myTurn) {
-    $('raiseBox').classList.add('hidden');
-  }
   if (myTurn) {
     const toCall = state.you.toCall;
     const checkBtn = document.querySelector('.act-check');
@@ -208,6 +219,8 @@ function renderControls() {
     // если колла хватает только на олл-ин — рейз недоступен
     const canRaise = state.you.stack > toCall;
     raiseBtn.classList.toggle('hidden', !canRaise);
+    // «Бет» когда ставок ещё не было, иначе «Рейз»
+    raiseBtn.textContent = state.currentBet > 0 ? 'Рейз' : 'Бет';
   }
 }
 
