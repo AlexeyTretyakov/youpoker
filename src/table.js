@@ -26,12 +26,17 @@ export class Table {
   seatPlayer(user) {
     // уже за столом?
     const existing = this.seats.findIndex((p) => p && p.id === user.id);
-    if (existing >= 0) { this.seats[existing].connected = true; return existing; }
+    if (existing >= 0) {
+      this.seats[existing].connected = true;
+      if (user.photoUrl) this.seats[existing].photoUrl = user.photoUrl;
+      return existing;
+    }
     const pos = this.seats.findIndex((s) => s === null);
     if (pos < 0) return -1; // мест нет
     this.seats[pos] = {
       id: user.id,
       name: user.name,
+      photoUrl: user.photoUrl || null,
       stack: this.buyIn,
       hole: [],
       bet: 0,
@@ -329,6 +334,7 @@ export class Table {
           pos,
           id: p.id,
           name: p.name,
+          photoUrl: p.photoUrl || null,
           stack: p.stack,
           bet: p.bet,
           folded: p.folded,

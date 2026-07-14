@@ -30,7 +30,11 @@ function verifyInitData(initData) {
       if (calc !== hash) return null;
     }
     const user = JSON.parse(params.get('user'));
-    return { id: String(user.id), name: user.first_name + (user.last_name ? ' ' + user.last_name : '') };
+    return {
+      id: String(user.id),
+      name: user.first_name + (user.last_name ? ' ' + user.last_name : ''),
+      photoUrl: user.photo_url || null,
+    };
   } catch { return null; }
 }
 
@@ -41,7 +45,7 @@ function identify(socket, payload) {
     if (u) return u;
   }
   if (payload?.devUser) {
-    return { id: 'dev-' + payload.devUser.id, name: payload.devUser.name };
+    return { id: 'dev-' + payload.devUser.id, name: payload.devUser.name, photoUrl: null };
   }
   return null;
 }

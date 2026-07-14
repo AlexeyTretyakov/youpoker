@@ -165,7 +165,12 @@ function render() {
     const badge = p.allIn ? `<div class="badge">ALL-IN</div>` : '';
     const holeHtml = document.createElement('div'); holeHtml.className = 'phole';
     (p.hole || []).forEach((c) => holeHtml.appendChild(cardEl(c, true)));
+    const initial = (p.name || '?').trim().charAt(0).toUpperCase();
+    const avatarHtml = p.photoUrl
+      ? `<img class="avatar" src="${p.photoUrl}" alt="" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'avatar avatar-fallback',textContent:'${initial}'}))" />`
+      : `<div class="avatar avatar-fallback">${initial}</div>`;
     el.innerHTML = `<div class="plate">${dealer}${badge}
+      ${avatarHtml}
       <div class="pname">${escapeHtml(p.name)}${p.connected ? '' : ' 💤'}</div>
       <div class="pstack">${p.stack} фишек</div>
       <div class="phole"></div>
